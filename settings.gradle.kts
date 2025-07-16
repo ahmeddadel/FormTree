@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "FormTree"
 include(":app")
+include(":domain")
+include(":data")
