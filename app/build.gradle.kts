@@ -1,6 +1,20 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import java.io.FileInputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt)
+}
+
+private fun releaseDate(): String {
+    val date = Date()
+    val formatter = SimpleDateFormat("yyyyMMdd")
+    return formatter.format(date)
 }
 
 android {
@@ -12,30 +26,90 @@ android {
         minSdk = 24
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0" + "_${releaseDate()}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePropertiesFile = file(".\\signing.properties")
+            if (keystorePropertiesFile.exists()) {
+                val keystoreProperties = Properties()
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+                keyAlias = keystoreProperties["RELEASE_KEY_ALIAS"] as String
+                keyPassword = keystoreProperties["RELEASE_KEY_PASSWORD"] as String
+                storeFile = file(keystoreProperties["RELEASE_STORE_FILE"] as String)
+                storePassword = keystoreProperties["RELEASE_STORE_PASSWORD"] as String
+            }
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            buildConfigField("boolean", "RELEASE", "true")
+
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs["release"]
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            buildConfigField("boolean", "RELEASE", "false")
+
+            isDebuggable = true
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
     }
+
+    applicationVariants.all {
+        outputs.map { it as BaseVariantOutputImpl }
+            .forEach { output ->
+                if (output.outputFileName != null && output.outputFile.name.endsWith(".apk")) {
+                    val type = if (buildType.name == "release") {
+                        "release"
+                    } else {
+                        "debug"
+                    }
+                    val fileName =
+                        "FormTree_V${defaultConfig.versionName}.${defaultConfig.versionCode}_$type.apk"
+                    output.outputFileName = fileName
+                }
+            }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -45,4 +119,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Hilt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+
+    // SDP & SSP
+    implementation(libs.intuit.sdp)
+    implementation(libs.intuit.ssp)
 }

@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# SDP & SSP
+-keep class com.intuit.** { *; }
+
+# Spots Dialog
+-keep class dmax.dialog.** { *; }
