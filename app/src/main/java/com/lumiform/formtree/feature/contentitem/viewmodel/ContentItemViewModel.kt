@@ -40,6 +40,9 @@ class ContentItemViewModel @Inject constructor(
     }
 
     private fun getContentItems() {
+        if (_state.value.contentItem.isNotEmpty()) {
+            return // Avoid re-fetching if content is already loaded
+        }
         viewModelScope.launch(Dispatchers.IO) {
             getContentUseCase().collect { result ->
                 when (result) {
@@ -74,6 +77,17 @@ class ContentItemViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        _state.update {
+            it.copy(
+                isLoading = false,
+                contentItem = emptyList(),
+                error = null
+            )
         }
     }
 }

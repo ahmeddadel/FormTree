@@ -18,5 +18,5 @@
         android:layout_height="@dimen/_150sdp"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_error" />
+        tools:src="@drawable/ic_placeholder" />
 </LinearLayout>

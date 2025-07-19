@@ -76,3 +76,7 @@
 # With R8 full mode generic signatures are stripped for classes that are not kept.
 -keep,allowobfuscation,allowshrinking class retrofit2.Response
 ##---------------End: proguard configuration for Retrofit  ----------
+
+##---------------Begin: proguard configuration for DTO  ----------
+-keep class com.lumiform.data.remote.dto.** { *; }
+##---------------End: proguard configuration for DTO  ----------

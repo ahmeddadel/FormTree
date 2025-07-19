@@ -25,6 +25,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/_12sdp"
         android:layout_weight="1"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@id/btnBack"
@@ -32,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_error" />
+        tools:src="@drawable/ic_placeholder" />
 
     <Button
         android:id="@+id/btnBack"
