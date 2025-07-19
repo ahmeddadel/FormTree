@@ -90,8 +90,10 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
         fun bind(item: ContentItemModel.Page, depth: Int) {
             val textView = itemView.findViewById<TextView>(R.id.pageTitle)
             textView.text = item.title
-            textView.textSize =
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._22ssp)
+            textView.setTextSize(
+                android.util.TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._18ssp)
+            )
             textView.setPadding(depth * 20, 0, 0, 0)
         }
     }
@@ -100,8 +102,10 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
         fun bind(item: ContentItemModel.Section, depth: Int) {
             val textView = itemView.findViewById<TextView>(R.id.sectionTitle)
             textView.text = item.title
-            textView.textSize =
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._20ssp)
+            textView.setTextSize(
+                android.util.TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._16ssp)
+            )
             textView.setPadding(depth * 20, 0, 0, 0)
         }
     }
@@ -110,8 +114,10 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
         fun bind(item: ContentItemModel.TextQuestion, depth: Int) {
             val textView = itemView.findViewById<TextView>(R.id.textQuestion)
             textView.text = item.title
-            textView.textSize =
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._14ssp)
+            textView.setTextSize(
+                android.util.TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+            )
             textView.setPadding(depth * 20, 0, 0, 0)
         }
     }
@@ -123,7 +129,10 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
             val title = itemView.findViewById<TextView>(R.id.imageTitle)
 
             title.text = item.title
-            title.textSize = itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._14ssp)
+            title.setTextSize(
+                android.util.TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+            )
             title.setPadding(depth * 20, 0, 0, 0)
 
             Glide.with(imageView.context)

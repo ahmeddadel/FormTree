@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_content_item">
         <action
             android:id="@+id/action_contentItemFragment_to_contentItemImageFragment"
-            app:destination="@id/contentItemImageFragment" />
+            app:destination="@id/contentItemImageFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
 
 

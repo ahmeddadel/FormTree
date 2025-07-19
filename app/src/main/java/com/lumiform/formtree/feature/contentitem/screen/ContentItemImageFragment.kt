@@ -44,7 +44,7 @@ class ContentItemImageFragment : Fragment() {
 
 
         Glide.with(requireContext())
-            .load("args.imageUrl")
+            .load(args.imageUrl)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,

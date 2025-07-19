@@ -1,5 +1,6 @@
 package com.lumiform.formtree.di
 
+import android.content.Context
 import com.google.gson.Gson
 import com.lumiform.data.local.db.dao.CachedJsonDao
 import com.lumiform.data.remote.api.IApiService
@@ -8,6 +9,7 @@ import com.lumiform.domain.repository.IFormTreeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 /**
@@ -22,6 +24,7 @@ object RepositoryModule {
     /**
      * Provides IMainRepository instance
      *
+     * @param context Application context [Context]
      * @param apiService IApiService object [IApiService]
      * @param cachedJsonDao CachedJsonDao object [CachedJsonDao]
      * @param gson Gson object [Gson]
@@ -29,10 +32,11 @@ object RepositoryModule {
      */
     @Provides
     fun provideFormTreeRepository(
+        @ApplicationContext context: Context,
         apiService: IApiService,
         cachedJsonDao: CachedJsonDao,
         gson: Gson
     ): IFormTreeRepository {
-        return FormTreeRepositoryImpl(apiService, cachedJsonDao, gson)
+        return FormTreeRepositoryImpl(context, apiService, cachedJsonDao, gson)
     }
 }

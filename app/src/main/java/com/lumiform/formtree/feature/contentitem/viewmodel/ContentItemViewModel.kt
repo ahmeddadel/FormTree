@@ -1,9 +1,11 @@
 package com.lumiform.formtree.feature.contentitem.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.lumiform.domain.Resource
 import com.lumiform.domain.usecase.GetContentUseCase
+import com.lumiform.formtree.R
 import com.lumiform.formtree.feature.contentitem.intent.ContentItemIntent
 import com.lumiform.formtree.feature.contentitem.state.ContentItemState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,8 +24,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ContentItemViewModel @Inject constructor(
+    application: Application,
     private val getContentUseCase: GetContentUseCase
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     private val _state = MutableStateFlow(ContentItemState())
     val state: StateFlow<ContentItemState> = _state.asStateFlow()
@@ -62,7 +65,10 @@ class ContentItemViewModel @Inject constructor(
                         _state.update { contentItemState ->
                             contentItemState.copy(
                                 isLoading = false,
-                                error = result.message ?: "An unexpected error occurred"
+                                error = result.message
+                                    ?: getApplication<Application>().resources.getString(
+                                        R.string.error_generic
+                                    )
                             )
                         }
                     }

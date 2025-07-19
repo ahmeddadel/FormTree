@@ -1,7 +1,9 @@
 package com.lumiform.data.repository
 
+import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
+import com.lumiform.data.R
 import com.lumiform.data.local.db.dao.CachedJsonDao
 import com.lumiform.data.local.db.entity.CachedJsonEntity
 import com.lumiform.data.local.mapper.toDomain
@@ -17,6 +19,7 @@ import java.io.IOException
  * @author adell
  */
 class FormTreeRepositoryImpl(
+    private val context: Context,
     private val contentApiService: IApiService,
     private val dao: CachedJsonDao,
     private val gson: Gson
@@ -43,16 +46,16 @@ class FormTreeRepositoryImpl(
             }
 
             contentItemDto.toDomain()?.let { listOf(it) }
-                ?: throw IllegalStateException("Parsed domain content is null")
+                ?: throw IllegalStateException(context.getString(R.string.error_parsed_content_null))
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching content from network: ${e.message}", e)
 
             val cachedJson = dao.getLastCached()?.json
-                ?: throw IOException("No cached data available", e)
+                ?: throw IOException(context.getString(R.string.error_no_cache), e)
 
             val cachedDto = gson.fromJson(cachedJson, ContentItemDto::class.java)
             cachedDto.toDomain()?.let { listOf(it) }
-                ?: throw IOException("Cached content is corrupted or invalid", e)
+                ?: throw IOException(context.getString(R.string.error_cache_corrupted), e)
         }
     }
 }
