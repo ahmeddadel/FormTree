@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_no_cache">No cached data available.</string>
+    <string name="error_cache_corrupted">Cached content is corrupted or invalid.</string>
+    <string name="error_parsed_content_null">Parsed content is null or empty.</string>
+</resources>

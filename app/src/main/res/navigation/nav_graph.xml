@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/contentItemFragment">
+
+    <fragment
+        android:id="@+id/contentItemFragment"
+        android:name="com.lumiform.formtree.feature.contentitem.screen.ContentItemFragment"
+        android:label="Content Item"
+        tools:layout="@layout/fragment_content_item">
+        <action
+            android:id="@+id/action_contentItemFragment_to_contentItemImageFragment"
+            app:destination="@id/contentItemImageFragment"
+            app:enterAnim="@anim/fade_in" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/contentItemImageFragment"
+        android:name="com.lumiform.formtree.feature.contentitem.screen.ContentItemImageFragment"
+        android:label="Content Item Image"
+        tools:layout="@layout/fragment_content_item_image">
+        <argument
+            android:name="imageUrl"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <argument
+            android:name="title"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+</navigation>

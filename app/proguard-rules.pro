@@ -19,3 +19,32 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+##---------------Begin: proguard configuration for SDP & SSP  ----------
+-keep class com.intuit.** { *; }
+##---------------End: proguard configuration for SDP & SSP  ----------
+
+##---------------Begin: proguard configuration for Spots Dialog  ----------
+-keep class dmax.dialog.** { *; }
+##---------------End: proguard configuration for Spots Dialog  ----------
+
+##---------------Begin: proguard configuration for Glide  ----------
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+# Uncomment for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+##---------------End: proguard configuration for Spots Glide  ----------
+
+##---------------Begin: proguard configuration for PhotoView  ----------
+-keep class com.github.chrisbanes.photoview.** { *; }
+##---------------End: proguard configuration for PhotoView  ----------

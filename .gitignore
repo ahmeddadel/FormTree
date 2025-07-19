@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/KeyStore.jks
+/signing.properties
