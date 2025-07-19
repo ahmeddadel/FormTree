@@ -9,6 +9,8 @@ espressoCore = "3.6.1"
 appcompat = "1.7.1"
 material = "1.12.0"
 activity = "1.10.1"
+androidKTX = "1.10.1"
+fragmentKTX = "1.8.8"
 constraintlayout = "2.2.1"
 room = "2.7.2"
 retrofit = "3.0.0"
@@ -16,7 +18,12 @@ retrofit-kotlinx-serialization-converter = "1.0.0"
 logging-interceptor = "5.1.0"
 gson = "2.13.1"
 hilt = "2.56.2"
+lifecycle = "2.9.2"
 intuit = "1.1.1"
+glide = "4.16.0"
+navigation = "2.9.2"
+safeargs = "2.9.2"
+photoView = "2.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,6 +33,8 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidKTX" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKTX" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -37,8 +46,15 @@ logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 intuit-sdp = { group = "com.intuit.sdp", name = "sdp-android", version.ref = "intuit" }
 intuit-ssp = { group = "com.intuit.ssp", name = "ssp-android", version.ref = "intuit" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+photoView = { group = "com.github.chrisbanes", name = "PhotoView", version.ref = "photoView" }
 
 
 [plugins]
@@ -48,4 +64,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-
+safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs" }
