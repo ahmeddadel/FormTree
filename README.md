@@ -148,7 +148,7 @@ You can directly install the app using the available APKs:
 
 | Build Type     | Description                                                 | Link                                                                   |
 | -------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------- |
-| 🔧 **Debug**   | Includes logs and debuggable build for development/testing. | [Download Debug APK]([https://drive.google.com/your-debug-apk-link](https://drive.google.com/file/d/1Wrddh7nvYQezAVyPxPx4veHGl93TzS2G/view?usp=sharing))     |
-| 🚀 **Release** | Optimized production build for end users.                   | [Download Release APK]([https://drive.google.com/your-release-apk-link](https://drive.google.com/file/d/1dLhw7QBfCpTsr2X_xF8P21Jv3pH9zutw/view?usp=sharing)) |
+| 🔧 **Debug**   | Includes logs and debuggable build for development/testing. | [Download Debug APK](https://drive.google.com/file/d/1Wrddh7nvYQezAVyPxPx4veHGl93TzS2G/view?usp=sharing)     |
+| 🚀 **Release** | Optimized production build for end users.                   | [Download Release APK](https://drive.google.com/file/d/1dLhw7QBfCpTsr2X_xF8P21Jv3pH9zutw/view?usp=sharing) |
 
 ---
