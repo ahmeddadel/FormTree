@@ -73,14 +73,31 @@ FormTreeApp/
 <details>
   <summary>📖 Click to expand</summary>
 
-* 🧩 Nested Display of Pages, Sections, and Questions
-* 🖼️ Full-screen Image Viewer (support Zoom)
+**Key Features Preview**
 
-<img width="1344" height="2992" alt="Screenshot_1" src="https://github.com/user-attachments/assets/4f55edb3-9d43-4dc8-9406-24f82091aaea" />
-<img width="1344" height="2992" alt="Screenshot_2" src="https://github.com/user-attachments/assets/fabaafe2-663c-4961-b987-61d0553ed2c6" />
-<img width="1344" height="2992" alt="Screenshot_3" src="https://github.com/user-attachments/assets/7280e561-ffbc-447f-ac65-b18f871fd45a" />
+* 🧩 Nested Display of Pages, Sections, and Questions
+* 🖼️ Full-screen Image Viewer with Zoom support
+
+| Main Screen                                                                                              | Image Preview Screen                                                                                     |
+|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| <img src="https://github.com/user-attachments/assets/4f55edb3-9d43-4dc8-9406-24f82091aaea" width="300"/> | <img src="https://github.com/user-attachments/assets/fabaafe2-663c-4961-b987-61d0553ed2c6" width="300"/> |
+
+| Image Zoom Screen                                                                                      | — |
+|--------------------------------------------------------------------------------------------------------| - |
+| <img src="https://github.com/user-attachments/assets/7280e561-ffbc-447f-ac65-b18f871fd45a" width="300"/> |   |
 
 </details>
+
+---
+
+### 📦 APK Downloads
+
+You can directly install the app using the available APKs:
+
+| Build Type     | Description                                                 | Link                                                                   |
+| -------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------- |
+| 🔧 **Debug**   | Includes logs and debuggable build for development/testing. | [Download Debug APK](https://drive.google.com/file/d/1Wrddh7nvYQezAVyPxPx4veHGl93TzS2G/view?usp=sharing)     |
+| 🚀 **Release** | Optimized production build for end users.                   | [Download Release APK](https://drive.google.com/file/d/1dLhw7QBfCpTsr2X_xF8P21Jv3pH9zutw/view?usp=sharing) |
 
 ---
 
