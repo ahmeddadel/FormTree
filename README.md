@@ -39,8 +39,8 @@ FormTreeApp/
 │   │   ├── db/
 │   │   │   ├── dao/
 │   │   │   ├── entity/
-│   │   │   └── Database.kt
-│   │   └── mapper/ContentItemMapper.kt
+│   │   │   └── FormTreeDatabase.kt
+│   │   └── mapper/
 │   ├── remote/
 │   │   ├── api/
 │   │   └── dto/
@@ -50,6 +50,7 @@ FormTreeApp/
 │   ├── model/
 │   ├── repository/
 │   └── usecase/
+│   └── Resource.kt
 │
 ├── app/
 │   ├── di/
@@ -73,16 +74,17 @@ FormTreeApp/
   <summary>📖 Click to expand</summary>
 
 * 🧩 Nested Display of Pages, Sections, and Questions
-* 🖼️ Full-screen Image Viewer
-* 📴 Offline Mode Preview
+* 🖼️ Full-screen Image Viewer (support Zoom)
 
-*Add screenshots here*
+<img width="1344" height="2992" alt="Screenshot_1" src="https://github.com/user-attachments/assets/4f55edb3-9d43-4dc8-9406-24f82091aaea" />
+<img width="1344" height="2992" alt="Screenshot_2" src="https://github.com/user-attachments/assets/fabaafe2-663c-4961-b987-61d0553ed2c6" />
+<img width="1344" height="2992" alt="Screenshot_3" src="https://github.com/user-attachments/assets/7280e561-ffbc-447f-ac65-b18f871fd45a" />
 
 </details>
 
 ---
 
-## 🧪 How to Run
+### 🧪 How to Run
 
 1. **Clone the repository**
 
@@ -95,7 +97,12 @@ cd form-tree-app
 
 3. **Build the project**
 
-> Ensure you have the latest version of Android Studio (Giraffe or later) and Android Gradle Plugin.
+> ✅ **Requirements:**
+>
+> * Android Studio **Giraffe** or later
+> * **JDK**: `21.0.6`
+> * **Gradle**: `8.13`
+> * **Android Gradle Plugin (AGP)**: `8.1.1`
 
 4. **Run the app**
 
@@ -122,24 +129,10 @@ If the remote fetch fails (e.g., due to no internet), the app falls back to cach
 
 ---
 
-## 💡 Future Improvements (Optional Enhancements)
-
-* Add Unit/UI tests using JUnit and Espresso.
-* Add dark mode and accessibility features.
-* Improve error UI for edge cases.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 🙌 Author
 
 **Ahmed Adel**
-[LinkedIn](https://www.linkedin.com/) • [GitHub](https://github.com/yourusername)
+[LinkedIn](https://www.linkedin.com/in/ahmedd-adell) • [GitHub](https://github.com/ahmeddadel)
 
 ---
 
