@@ -46,7 +46,7 @@ fun ContentItemDto.toDomain(): ContentItemModel? = when (type) {
  *
  * @return the corresponding [ContentItemDto].
  */
-fun ContentItemModel.toDto(): ContentItemDto = when (this) {
+fun ContentItemModel.toDto(): ContentItemDto = when (this@toDto) {
     is ContentItemModel.Page -> ContentItemDto(
         type = "page",
         title = title,

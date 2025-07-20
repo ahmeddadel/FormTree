@@ -4,13 +4,11 @@ import android.app.Activity
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import com.lumiform.formtree.R
+import com.lumiform.formtree.databinding.DialogErrorBinding
 import dmax.dialog.SpotsDialog
 
 
@@ -27,7 +25,7 @@ import dmax.dialog.SpotsDialog
  */
 fun Activity.getSpotsDialogProgress(message: String = getString(R.string.processing)): android.app.AlertDialog {
     return SpotsDialog.Builder()
-        .setContext(this) // set the context of the progress dialog
+        .setContext(this@getSpotsDialogProgress) // set the context of the progress dialog
         .setTheme(R.style.ProgressBarStyle) // set the theme of the progress dialog
         .setMessage(message) // set the message of the progress dialog (default is "Processing")
         .setCancelable(false) // set the progress dialog to not cancelable
@@ -56,25 +54,18 @@ fun Activity.showCustomAlertDialog(
     onCancelClick: () -> Unit = {},
     onDismiss: () -> Unit = {}
 ) {
-    val alertDialogView = LayoutInflater.from(this).inflate(
-        R.layout.dialog_error,
-        findViewById<ConstraintLayout>(R.id.constraint_layout_error_dialog),
-        false
-    )
+    val binding = DialogErrorBinding.inflate(LayoutInflater.from(this@showCustomAlertDialog))
 
-    val alertDialogTitle = alertDialogView.findViewById<TextView>(R.id.tv_error_dialog_title)
-    val alertDialogMessage = alertDialogView.findViewById<TextView>(R.id.tv_error_dialog_message)
-    val alertDialogOkButton = alertDialogView.findViewById<Button>(R.id.dialog_ok_button)
-    val alertDialogCancelButton = alertDialogView.findViewById<Button>(R.id.dialog_cancel_button)
+    binding.tvErrorDialogTitle.text = title
+    binding.tvErrorDialogMessage.text = message
+    binding.dialogOkButton.text = okButtonText
+    binding.dialogCancelButton.text = cancelButtonText
 
-    alertDialogMessage.movementMethod = android.text.method.ScrollingMovementMethod()
-    alertDialogTitle.text = title
-    alertDialogMessage.text = message
-    alertDialogOkButton.text = okButtonText
-    alertDialogCancelButton.text = cancelButtonText
+    binding.tvErrorDialogMessage.movementMethod = android.text.method.ScrollingMovementMethod()
+    binding.dialogCancelButton.isVisible = showCancelButton
 
-    val alertDialog = AlertDialog.Builder(this)
-        .setView(alertDialogView)
+    val alertDialog = AlertDialog.Builder(this@showCustomAlertDialog)
+        .setView(binding.root)
         .setCancelable(false)
         .create()
 
@@ -83,16 +74,14 @@ fun Activity.showCustomAlertDialog(
         setDimAmount(0.7f)
     }
 
-    alertDialogCancelButton.isVisible = showCancelButton
-
     var result = false
 
-    alertDialogOkButton.setOnClickListenerWithDebounce {
+    binding.dialogOkButton.setOnClickListenerWithDebounce {
         result = true
         alertDialog.dismiss()
     }
 
-    alertDialogCancelButton.setOnClickListenerWithDebounce {
+    binding.dialogCancelButton.setOnClickListenerWithDebounce {
         result = false
         alertDialog.dismiss()
     }
@@ -118,7 +107,11 @@ fun Activity.showCustomAlertDialog(
 fun View.setOnClickListenerWithDebounce(
     debounceTime: Long = 500L,
     onClickListener: View.OnClickListener
-) = ClickUtils.applySingleDebouncing(arrayOf(this), debounceTime, onClickListener)
+) = ClickUtils.applySingleDebouncing(
+    arrayOf(this@setOnClickListenerWithDebounce),
+    debounceTime,
+    onClickListener
+)
 
 /**
  * Sets a click listener on a view with a default debounce mechanism.
@@ -130,4 +123,4 @@ fun View.setOnClickListenerWithDebounce(
  * @param onClickListener The [View.OnClickListener] to be invoked when the view is clicked.
  */
 fun View.setOnClickListenerWithDebounce(onClickListener: View.OnClickListener) =
-    ClickUtils.applySingleDebouncing(this, onClickListener)
+    ClickUtils.applySingleDebouncing(this@setOnClickListenerWithDebounce, onClickListener)

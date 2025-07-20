@@ -34,7 +34,7 @@ class ClickManager private constructor() {
         private var instance: ClickManager? = null
 
         fun getInstance(): ClickManager {
-            return instance ?: synchronized(this) {
+            return instance ?: synchronized(this@Companion) {
                 instance ?: ClickManager().also { instance = it }
             }
         }
