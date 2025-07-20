@@ -11,15 +11,17 @@ import com.lumiform.data.remote.api.IApiService
 import com.lumiform.data.remote.dto.ContentItemDto
 import com.lumiform.domain.model.ContentItemModel
 import com.lumiform.domain.repository.IFormTreeRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * @created 17/07/2025 - 12:04 AM
  * @project FormTree
  * @author adell
  */
-class FormTreeRepositoryImpl(
-    private val context: Context,
+class FormTreeRepositoryImpl @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val contentApiService: IApiService,
     private val dao: CachedJsonDao,
     private val gson: Gson
