@@ -26,24 +26,24 @@ class FormTreeRepositoryImpl(
 ) : IFormTreeRepository {
 
     companion object {
-        private const val TAG = "MainRepositoryImpl"
+        private const val TAG = "FormTreeRepositoryImpl"
     }
 
     override suspend fun getContent(): List<ContentItemModel> {
         return try {
             // Try remote fetch
             val contentItemDto: ContentItemDto = contentApiService.fetchContent()
-            val json = gson.toJson(contentItemDto)
 
-            if (dao.getAllCached().isNotEmpty()) {
+            val json = gson.toJson(contentItemDto)
+            val isCacheNotEmpty = dao.getAllCached().isNotEmpty()
+            if (isCacheNotEmpty) {
                 if (dao.clearCache() > 0) {
-                    dao.insertCache(CachedJsonEntity(json = json))
+                    Log.d(TAG, "Cache cleared successfully")
                 } else {
                     Log.e(TAG, "Failed to clear cache")
                 }
-            } else {
-                dao.insertCache(CachedJsonEntity(json = json))
             }
+            dao.insertCache(CachedJsonEntity(json = json))
 
             contentItemDto.toDomain()?.let { listOf(it) }
                 ?: throw IllegalStateException(context.getString(R.string.error_parsed_content_null))

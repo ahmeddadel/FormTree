@@ -22,7 +22,7 @@ import dagger.hilt.components.SingletonComponent
 object RepositoryModule {
 
     /**
-     * Provides IMainRepository instance
+     * Provides IFormTreeRepository instance
      *
      * @param context Application context [Context]
      * @param apiService IApiService object [IApiService]

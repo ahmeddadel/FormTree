@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.lumiform.data.local.db.FormTreeDatabase
 import com.lumiform.data.local.db.dao.CachedJsonDao
+import com.lumiform.formtree.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +31,7 @@ object DataModule {
     @Provides
     @Singleton
     fun provideFormTreeDatabase(@ApplicationContext context: Context): FormTreeDatabase =
-        Room.databaseBuilder(context, FormTreeDatabase::class.java, "FormTree_DB").build()
+        Room.databaseBuilder(context, FormTreeDatabase::class.java, Constants.DATABASE_NAME).build()
 
 
     /**

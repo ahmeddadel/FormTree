@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lumiform.domain.model.ContentItemModel
 import com.lumiform.formtree.R
-import com.lumiform.formtree.utils.setDebouncedClickListener
+import com.lumiform.formtree.utils.setOnClickListenerWithDebounce
 
 /**
  * @created 19/07/2025 - 2:13 PM
@@ -142,7 +142,7 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
                 .override(150, 150)
                 .into(imageView)
 
-            imageView.setDebouncedClickListener {
+            imageView.setOnClickListenerWithDebounce {
                 onImageClick(item.src, item.title)
             }
         }

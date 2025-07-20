@@ -1,10 +1,7 @@
 package com.lumiform.formtree.utils
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.Color
-import android.os.SystemClock
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -90,12 +87,12 @@ fun Activity.showCustomAlertDialog(
 
     var result = false
 
-    alertDialogOkButton.setDebouncedClickListener {
+    alertDialogOkButton.setOnClickListenerWithDebounce {
         result = true
         alertDialog.dismiss()
     }
 
-    alertDialogCancelButton.setDebouncedClickListener {
+    alertDialogCancelButton.setOnClickListenerWithDebounce {
         result = false
         alertDialog.dismiss()
     }
@@ -109,44 +106,28 @@ fun Activity.showCustomAlertDialog(
 }
 
 /**
- * Sets a debounced click listener on the view to prevent multiple rapid clicks.
+ * Sets a click listener on a view with a debounce mechanism to prevent multiple rapid clicks.
  *
- * @param interval The minimum time interval between clicks in milliseconds. Default is 600ms.
- * @param action The action to perform when the view is clicked.
+ * This method applies a debounce time to the click listener to avoid multiple clicks within a short
+ * period. The click listener will be triggered only after the specified debounce time has elapsed
+ * since the last click.
+ *
+ * @param debounceTime The time in milliseconds to wait before allowing another click. Default is 500 milliseconds.
+ * @param onClickListener The [View.OnClickListener] to be invoked when the view is clicked.
  */
-fun View.setDebouncedClickListener(interval: Long = 600L, action: (View) -> Unit) {
-    var lastClickTime = 0L
-
-    setOnClickListener {
-        val currentTime = SystemClock.elapsedRealtime()
-        if (currentTime - lastClickTime >= interval) {
-            lastClickTime = currentTime
-            action(it)
-        }
-    }
-}
+fun View.setOnClickListenerWithDebounce(
+    debounceTime: Long = 500L,
+    onClickListener: View.OnClickListener
+) = ClickUtils.applySingleDebouncing(arrayOf(this), debounceTime, onClickListener)
 
 /**
- * Converts density-independent pixels (dp) to pixels (px).
+ * Sets a click listener on a view with a default debounce mechanism.
  *
- * @param dp The value in density-independent pixels to convert.
- * @return The converted value in pixels.
- */
-fun Context.dpToPx(dp: Float): Float {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
-}
-
-/**
- * Converts scale-independent pixels (sp) to pixels (px).
+ * This method applies a default debounce time to the click listener to avoid multiple clicks
+ * within a short period. The click listener will be triggered only after the default debounce time
+ * has elapsed since the last click.
  *
- * @param sp The value in scale-independent pixels to convert.
- * @return The converted value in pixels.
+ * @param onClickListener The [View.OnClickListener] to be invoked when the view is clicked.
  */
-fun Context.spToPx(sp: Float): Float {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics
-    )
-}
-
+fun View.setOnClickListenerWithDebounce(onClickListener: View.OnClickListener) =
+    ClickUtils.applySingleDebouncing(this, onClickListener)

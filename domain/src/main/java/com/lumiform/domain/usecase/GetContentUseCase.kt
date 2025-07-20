@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
  */
 class GetContentUseCase(
     private val context: Context,
-    private val mainRepository: IFormTreeRepository
+    private val formTreeRepository: IFormTreeRepository
 ) {
 
     /**
@@ -26,7 +26,7 @@ class GetContentUseCase(
     operator fun invoke(): Flow<Resource<List<ContentItemModel>>> = flow {
         try {
             emit(Resource.Loading())
-            val contentItems = mainRepository.getContent()
+            val contentItems = formTreeRepository.getContent()
             emit(Resource.Success(contentItems))
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: context.getString(R.string.error_generic)))

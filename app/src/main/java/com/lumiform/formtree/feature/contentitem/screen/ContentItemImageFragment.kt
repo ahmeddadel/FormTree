@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.lumiform.formtree.R
 import com.lumiform.formtree.databinding.FragmentContentItemImageBinding
-import com.lumiform.formtree.utils.setDebouncedClickListener
+import com.lumiform.formtree.utils.setOnClickListenerWithDebounce
 import com.lumiform.formtree.utils.showCustomAlertDialog
 
 
@@ -75,7 +75,7 @@ class ContentItemImageFragment : Fragment() {
             })
             .into(binding.imageView)
 
-        binding.btnBack.setDebouncedClickListener {
+        binding.btnBack.setOnClickListenerWithDebounce {
             findNavController().navigateUp()
         }
     }
