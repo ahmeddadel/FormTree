@@ -84,6 +84,17 @@ FormTreeApp/
 
 ---
 
+### 📦 APK Downloads
+
+You can directly install the app using the available APKs:
+
+| Build Type     | Description                                                 | Link                                                                   |
+| -------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------- |
+| 🔧 **Debug**   | Includes logs and debuggable build for development/testing. | [Download Debug APK](https://drive.google.com/file/d/1Wrddh7nvYQezAVyPxPx4veHGl93TzS2G/view?usp=sharing)     |
+| 🚀 **Release** | Optimized production build for end users.                   | [Download Release APK](https://drive.google.com/file/d/1dLhw7QBfCpTsr2X_xF8P21Jv3pH9zutw/view?usp=sharing) |
+
+---
+
 ### 🧪 How to Run
 
 1. **Clone the repository**
@@ -139,16 +150,5 @@ If the remote fetch fails (e.g., due to no internet), the app falls back to cach
 ## 🏁 Final Notes
 
 This challenge was approached with a focus on **clean code**, **scalable architecture**, and **user-centric experience**. Offline reliability, visual clarity, and good engineering practices were prioritized throughout the development.
-
----
-
-### 📦 APK Downloads
-
-You can directly install the app using the available APKs:
-
-| Build Type     | Description                                                 | Link                                                                   |
-| -------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------- |
-| 🔧 **Debug**   | Includes logs and debuggable build for development/testing. | [Download Debug APK](https://drive.google.com/file/d/1Wrddh7nvYQezAVyPxPx4veHGl93TzS2G/view?usp=sharing)     |
-| 🚀 **Release** | Optimized production build for end users.                   | [Download Release APK](https://drive.google.com/file/d/1dLhw7QBfCpTsr2X_xF8P21Jv3pH9zutw/view?usp=sharing) |
 
 ---
