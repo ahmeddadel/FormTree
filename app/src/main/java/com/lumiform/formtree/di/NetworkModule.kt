@@ -3,6 +3,7 @@ package com.lumiform.formtree.di
 import android.content.Context
 import com.lumiform.data.remote.api.IApiService
 import com.lumiform.formtree.BuildConfig
+import com.lumiform.formtree.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -68,7 +69,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://mocki.io/v1/")
+            .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -11,39 +11,41 @@ import com.lumiform.data.remote.api.IApiService
 import com.lumiform.data.remote.dto.ContentItemDto
 import com.lumiform.domain.model.ContentItemModel
 import com.lumiform.domain.repository.IFormTreeRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * @created 17/07/2025 - 12:04 AM
  * @project FormTree
  * @author adell
  */
-class FormTreeRepositoryImpl(
-    private val context: Context,
+class FormTreeRepositoryImpl @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val contentApiService: IApiService,
     private val dao: CachedJsonDao,
     private val gson: Gson
 ) : IFormTreeRepository {
 
     companion object {
-        private const val TAG = "MainRepositoryImpl"
+        private const val TAG = "FormTreeRepositoryImpl"
     }
 
     override suspend fun getContent(): List<ContentItemModel> {
         return try {
             // Try remote fetch
             val contentItemDto: ContentItemDto = contentApiService.fetchContent()
-            val json = gson.toJson(contentItemDto)
 
-            if (dao.getAllCached().isNotEmpty()) {
+            val json = gson.toJson(contentItemDto)
+            val isCacheNotEmpty = dao.getAllCached().isNotEmpty()
+            if (isCacheNotEmpty) {
                 if (dao.clearCache() > 0) {
-                    dao.insertCache(CachedJsonEntity(json = json))
+                    Log.d(TAG, "Cache cleared successfully")
                 } else {
                     Log.e(TAG, "Failed to clear cache")
                 }
-            } else {
-                dao.insertCache(CachedJsonEntity(json = json))
             }
+            dao.insertCache(CachedJsonEntity(json = json))
 
             contentItemDto.toDomain()?.let { listOf(it) }
                 ?: throw IllegalStateException(context.getString(R.string.error_parsed_content_null))

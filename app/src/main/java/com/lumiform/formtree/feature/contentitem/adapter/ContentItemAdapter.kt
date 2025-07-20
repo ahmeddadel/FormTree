@@ -1,17 +1,19 @@
 package com.lumiform.formtree.feature.contentitem.adapter
 
+import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lumiform.domain.model.ContentItemModel
 import com.lumiform.formtree.R
-import com.lumiform.formtree.utils.setDebouncedClickListener
+import com.lumiform.formtree.databinding.ItemImageQuestionBinding
+import com.lumiform.formtree.databinding.ItemPageBinding
+import com.lumiform.formtree.databinding.ItemSectionBinding
+import com.lumiform.formtree.databinding.ItemTextQuestionBinding
+import com.lumiform.formtree.utils.setOnClickListenerWithDebounce
 
 /**
  * @created 19/07/2025 - 2:13 PM
@@ -33,36 +35,15 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            0 -> PageViewHolder(
-                inflater.inflate(
-                    R.layout.item_page,
-                    parent,
-                    false
-                )
-            )
+            0 -> PageViewHolder(ItemPageBinding.inflate(inflater, parent, false))
 
-            1 -> SectionViewHolder(
-                inflater.inflate(
-                    R.layout.item_section,
-                    parent,
-                    false
-                )
-            )
+            1 -> SectionViewHolder(ItemSectionBinding.inflate(inflater, parent, false))
 
-            2 -> TextQuestionViewHolder(
-                inflater.inflate(
-                    R.layout.item_text_question,
-                    parent,
-                    false
-                )
-            )
+            2 -> TextQuestionViewHolder(ItemTextQuestionBinding.inflate(inflater, parent, false))
 
             3 -> ImageQuestionViewHolder(
-                inflater.inflate(
-                    R.layout.item_image_question,
-                    parent,
-                    false
-                ), onImageClick
+                ItemImageQuestionBinding.inflate(inflater, parent, false),
+                onImageClick
             )
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -73,7 +54,9 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
         val item = getItem(position)
         when (holder) {
             is PageViewHolder -> holder.bind(item.item as ContentItemModel.Page, item.depth)
+
             is SectionViewHolder -> holder.bind(item.item as ContentItemModel.Section, item.depth)
+
             is TextQuestionViewHolder -> holder.bind(
                 item.item as ContentItemModel.TextQuestion,
                 item.depth
@@ -86,63 +69,71 @@ class ContentItemAdapter(private val onImageClick: (String, String) -> Unit) :
         }
     }
 
-    class PageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class PageViewHolder(private val binding: ItemPageBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ContentItemModel.Page, depth: Int) {
-            val textView = itemView.findViewById<TextView>(R.id.pageTitle)
-            textView.text = item.title
-            textView.setTextSize(
-                android.util.TypedValue.COMPLEX_UNIT_PX,
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._18ssp)
+            binding.pageTitle.text = item.title
+            binding.pageTitle.setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._22ssp)
             )
-            textView.setPadding(depth * 20, 0, 0, 0)
+            binding.pageTitle.setPadding(depth * 20, 0, 0, 0)
         }
     }
 
-    class SectionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class SectionViewHolder(private val binding: ItemSectionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ContentItemModel.Section, depth: Int) {
-            val textView = itemView.findViewById<TextView>(R.id.sectionTitle)
-            textView.text = item.title
-            textView.setTextSize(
-                android.util.TypedValue.COMPLEX_UNIT_PX,
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._16ssp)
+            binding.sectionTitle.text = item.title
+
+            // decrease nested section title size based on depth
+            val baseSize = itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._20ssp)
+            val decreasePerDepth =
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._2ssp)
+            val finalSize = (baseSize - (depth * decreasePerDepth)).coerceAtLeast(
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._13ssp)
             )
-            textView.setPadding(depth * 20, 0, 0, 0)
+            binding.sectionTitle.setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                finalSize
+            )
+
+            binding.sectionTitle.setPadding(depth * 20, 0, 0, 0)
         }
     }
 
-    class TextQuestionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class TextQuestionViewHolder(private val binding: ItemTextQuestionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ContentItemModel.TextQuestion, depth: Int) {
-            val textView = itemView.findViewById<TextView>(R.id.textQuestion)
-            textView.text = item.title
-            textView.setTextSize(
-                android.util.TypedValue.COMPLEX_UNIT_PX,
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+            binding.textQuestion.text = item.title
+            binding.textQuestion.setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._12ssp)
             )
-            textView.setPadding(depth * 20, 0, 0, 0)
+            binding.textQuestion.setPadding(depth * 20, 0, 0, 0)
         }
     }
 
-    class ImageQuestionViewHolder(view: View, private val onImageClick: (String, String) -> Unit) :
-        RecyclerView.ViewHolder(view) {
+    class ImageQuestionViewHolder(
+        private val binding: ItemImageQuestionBinding,
+        private val onImageClick: (String, String) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ContentItemModel.ImageQuestion, depth: Int) {
-            val imageView = itemView.findViewById<ImageView>(R.id.imageThumbnail)
-            val title = itemView.findViewById<TextView>(R.id.imageTitle)
-
-            title.text = item.title
-            title.setTextSize(
-                android.util.TypedValue.COMPLEX_UNIT_PX,
-                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._10ssp)
+            binding.imageTitle.text = item.title
+            binding.imageTitle.setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                itemView.context.resources.getDimension(com.intuit.ssp.R.dimen._12ssp)
             )
-            title.setPadding(depth * 20, 0, 0, 0)
+            binding.imageTitle.setPadding(depth * 20, 0, 0, 0)
 
-            Glide.with(imageView.context)
+            Glide.with(binding.imageThumbnail.context)
                 .load(item.src)
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_placeholder)
                 .override(150, 150)
-                .into(imageView)
+                .into(binding.imageThumbnail)
 
-            imageView.setDebouncedClickListener {
+            binding.imageThumbnail.setOnClickListenerWithDebounce {
                 onImageClick(item.src, item.title)
             }
         }
